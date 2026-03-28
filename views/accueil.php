@@ -13,16 +13,29 @@
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
 
+
       <link rel="stylesheet" href="assets/carte.css">
 </head>
 <body>
 
 <div id="entete"> 
-<h1>Bienvenue sur VilleVisuelle !</h1>
+<h1>Bienvenue sur VilleMap</h1>
 <h2>🔍 Recherche d'Adresses</h2>
-     <form>
-        <button>Recherche</button>
+        <form>
+        <select id="mode">
+            <option value="commence">Commence par</option>
+            <option value="contient">Contient</option>
+            <option value="termine">Finit par</option>
+        </select>
+
+        <input type="text" id="search" placeholder="ex: plou, heim, ac..."/>
+
+        <button type="button" onclick="rechercher()">🔍 Rechercher</button>
     </form>
+
+    <button type="button" onclick="rechercheRapide('commence', 'K')">Commence par K</button>
+    <button type="button" onclick="rechercheRapide('termine', 'heim')">Finit par heim</button>
+    <button type="button" onclick="rechercheRapide('termine', 'ac')">Finit par ac</button>
 
  </div>
 
@@ -30,7 +43,7 @@
 <div id="map"></div> 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/carte.js"></script>
 </body>
 </html>
