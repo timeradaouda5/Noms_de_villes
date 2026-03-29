@@ -29,7 +29,12 @@
 <h2>🔍 Recherche d'adresses</h2>
         <form>
 
-          <input type="text" v-model="recherche" placeholder="Taper un nom de ville..."/>   
+          <input type="text" v-model="recherche" @input="autocomplete" placeholder="Taper un nom de ville..."/>
+<ul>
+    <li v-for="suggestion in suggestions" @click="choisir(suggestion)">
+        {{ suggestion.nom }}
+    </li>
+</ul>
         <div id="options">
         <select v-model="mode">
             <option value="commence">Commence par</option>

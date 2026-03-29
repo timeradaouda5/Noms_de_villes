@@ -6,7 +6,8 @@ Vue.createApp({
     data() {
         return {
             recherche: '',
-            mode: 'commence'
+            mode: 'commence',
+            suggestions: []
         };
 
     },
@@ -38,7 +39,7 @@ Vue.createApp({
 
                     villes.forEach(ville => {
                 L.marker([ville.lat, ville.lon])
-                    .bindPopup('<strong>' + ville.nom + '</strong>')
+                    .bindPopup('<strong>' + ville.nom + '</strong><br>' + ville.insee)
                     .addTo(marqueurs);
             });
 
@@ -68,7 +69,30 @@ Vue.createApp({
                 .addTo(marqueurs)
                 .openPopup();
             map.setView([moyLat, moyLon], 8);
-        }
+        },
+        autocomplete() {
+    if (this.recherche.length < 2) {
+        this.suggestions = [];
+        return;
+    }
+    fetch('/villes?mode=commence&search=' + this.recherche)
+        .then(r => r.json())
+        .then(villes => {
+            this.suggestions = villes;
+        });
+},
+choisir(suggestion) {
+    this.recherche = suggestion.nom;
+    this.suggestions = [];
+    if (suggestion.geojson) {
+                let contour = L.geoJSON(JSON.parse(suggestion.geojson)).addTo(marqueurs);
+                L.marker([suggestion.lat, suggestion.lon])
+    .bindPopup('<strong>' + suggestion.nom + '</strong><br>' + suggestion.insee)
+    .addTo(marqueurs)
+    .openPopup();
+                map.fitBounds(contour.getBounds());
+            }
+}
     }
 }).mount('#entete');
 

@@ -39,7 +39,8 @@ Flight::route('/villes', function() {
         $texteRecherche = '%' . $recherche . '%';
     }
 
-    $sql = "SELECT nom,
+    $sql = "SELECT nom, insee,
+                ST_AsGeoJSON(geometry) AS geojson,
                 ST_X(ST_GeomFromText(ST_AsText(ST_Centroid(geometry)),4326)) AS lon,
                 ST_Y(ST_GeomFromText(ST_AsText(ST_Centroid(geometry)),4326)) AS lat
             FROM communes 
