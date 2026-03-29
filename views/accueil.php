@@ -29,31 +29,33 @@
 <h2>🔍 Recherche d'adresses</h2>
         <form>
 
-          <input type="text" id="search" placeholder="Taper un nom de ville..."/>   
+          <input type="text" v-model="recherche" placeholder="Taper un nom de ville..."/>   
         <div id="options">
-        <select id="mode">
+        <select v-model="mode">
             <option value="commence">Commence par</option>
             <option value="contient">Contient</option>
             <option value="termine">Finit par</option>
         </select>
-        
-            <button type="button" onclick="rechercher()">🔍 Rechercher</button>
+
+            <button type="button" @click="lancerRecherche()">🔍 Rechercher</button>
         </div>
        
 
         
     </form>
 
-    <button type="button" onclick="rechercheRapide('commence', 'K')">Commence par K</button>
-    <button type="button" onclick="rechercheRapide('termine', 'orge')">Finit par orge</button>
-    <button type="button" onclick="rechercheRapide('termine', 'ac')">Finit par ac</button>
+   <button type="button" @click="rechercheRapide('commence', 'K')">Commence par K</button>
+<button type="button" @click="rechercheRapide('termine', 'orge')">Finit par orge</button>
+<button type="button" @click="rechercheRapide('termine', 'ac')">Finit par ac</button>
+<button type="button" @click="afficherBarycentre()"> Barycentre</button>
     </div>
     <div id="map"></div> 
  </div>
-</div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 <script src="assets/carte.js"></script>
 </body>
 </html>
